@@ -1,12 +1,8 @@
 /**
  * author chenyu
  * Reference zepto event.js
- * /
- 
- /** usage: 
- * 1.import this in main.js
- * 2.use directive(v-touch:longTap||v-touch:longtap,v-touch:swipeLeft etc.)
- */ 
+ * usage:v-touch:longTap||v-touch:longtap,v-touch:swipeLeft etc.
+ **/
  
 import Vue from 'vue'
 // create directive
@@ -28,7 +24,7 @@ Vue.directive('touch', {
     var tapTimeout
     var swipeTimeout
 
-    //return swipexx
+    //return swipexxx
     function swipeDirection(x1, x2, y1, y2) {
       return Math.abs(x1 - x2) >=
         Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'left' : 'right') : (y1 - y2 > 0 ? 'up' : 'down')
@@ -92,14 +88,10 @@ Vue.directive('touch', {
           // ('tap' fires before 'scroll')
           tapTimeout = setTimeout(function () {
             clearTimeout(touchTimeout)
-            // trigger universal 'tap' with the option to cancelTouch()
-            // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
             if (touchType === 'tap') {
               ev.cancelTouch = cancelAll
             }
-            //   // [by paper] fix -> "TypeError: 'undefined' is not an object (evaluating 'touch.el.trigger'), when double tap
-            //   if (touch.el) touch.el.trigger(event)
-            // trigger double tap immediately
+            // double tap 
             if (touch.isDoubleTap) {
               if (binding.value && touchType === 'doubletap') {
                 binding.value(vnode)
@@ -107,7 +99,7 @@ Vue.directive('touch', {
               touch = {}
             }
 
-            // trigger single tap after 250ms of inactivity
+            // single tap after 250ms of inactivity
             else {
               touchTimeout = setTimeout(function () {
                 touchTimeout = null
